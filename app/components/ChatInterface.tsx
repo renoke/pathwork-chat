@@ -143,7 +143,7 @@ export default function ChatInterface() {
         {messages.length === 0 ? (
           <div style={{ flex: 1, display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", gap: "24px", color: "#999" }}>
             <p>Ask a question about the Pathwork Lectures...</p>
-            <div style={{ display: "flex", flexDirection: "column", gap: "12px", width: "100%" }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: "12px", width: "100%", maxWidth: "500px" }}>
               {examplePrompts.map((prompt, idx) => (
                 <button
                   key={idx}
