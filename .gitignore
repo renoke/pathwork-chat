@@ -8,3 +8,6 @@ dist/
 ingest/.cache/
 data/
 .DS_Store
+
+.next/
+out/
