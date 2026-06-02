@@ -75,23 +75,20 @@ BEGIN
     WHERE websearch_to_tsquery('english', query_text) @@ c.fts
     ORDER BY ts_rank(c.fts, websearch_to_tsquery('english', query_text)) DESC
     LIMIT match_count * 2
-  ),
-  combined AS (
-    SELECT
-      COALESCE(v.id, t.id) as chunk_id,
-      COALESCE(v.lecture_id, t.lecture_id) as lecture_id,
-      COALESCE(v.title, t.title) as lecture_title,
-      COALESCE(v."position", t."position") as "position",
-      COALESCE(v.content, t.content) as content,
-      COALESCE(v.vector_sim, 0) as vector_similarity,
-      COALESCE(t.text_sim, 0) as text_similarity,
-      (COALESCE(v.vector_sim, 0) * vector_weight + COALESCE(t.text_sim, 0) * text_weight) as combined_score
-    FROM vector_matches v
-    FULL OUTER JOIN text_matches t ON v.id = t.id
   )
-  SELECT * FROM combined
-  WHERE vector_similarity > 0 OR text_similarity > 0
-  ORDER BY combined_score DESC
+  SELECT
+    COALESCE(v.id, t.id)::BIGINT as chunk_id,
+    COALESCE(v.lecture_id, t.lecture_id)::INT as lecture_id,
+    COALESCE(v.title, t.title)::TEXT as lecture_title,
+    COALESCE(v."position", t."position")::INT as "position",
+    COALESCE(v.content, t.content)::TEXT as content,
+    COALESCE(v.vector_sim, 0)::FLOAT as vector_similarity,
+    COALESCE(t.text_sim, 0)::FLOAT as text_similarity,
+    (COALESCE(v.vector_sim, 0) * vector_weight + COALESCE(t.text_sim, 0) * text_weight)::FLOAT as combined_score
+  FROM vector_matches v
+  FULL OUTER JOIN text_matches t ON v.id = t.id
+  WHERE COALESCE(v.vector_sim, 0) > 0 OR COALESCE(t.text_sim, 0) > 0
+  ORDER BY (COALESCE(v.vector_sim, 0) * vector_weight + COALESCE(t.text_sim, 0) * text_weight) DESC
   LIMIT match_count;
 END;
 $$ LANGUAGE plpgsql;
