@@ -12,7 +12,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body style={{ margin: 0, padding: 0, fontFamily: "system-ui" }}>
+      <head>
+        <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap" rel="stylesheet" />
+      </head>
+      <body style={{ margin: 0, padding: 0, fontFamily: "'Merriweather', serif" }}>
         {children}
       </body>
     </html>

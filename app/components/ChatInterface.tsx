@@ -138,7 +138,7 @@ export default function ChatInterface() {
   };
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", height: "400px", background: "white", borderRadius: "12px", boxShadow: "0 2px 8px rgba(0,0,0,0.1)", overflow: "hidden" }}>
+    <div style={{ display: "flex", flexDirection: "column", height: "500px", background: "white", borderRadius: "12px", boxShadow: "0 2px 8px rgba(0,0,0,0.1)", overflow: "hidden", fontFamily: "'Merriweather', serif" }}>
       <div style={{ flex: 1, overflowY: "auto", padding: "12px", display: "flex", flexDirection: "column" }}>
         {messages.length === 0 ? (
           <div style={{ flex: 1, display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", gap: "24px", color: "#999" }}>
@@ -148,7 +148,7 @@ export default function ChatInterface() {
                 <button
                   key={idx}
                   onClick={() => setInput(prompt)}
-                  style={{ padding: "12px 16px", background: "#f0f0f0", border: "1px solid #ddd", borderRadius: "8px", cursor: "pointer", fontSize: "0.95rem", color: "#333" }}
+                  style={{ padding: "12px 16px", background: "#f0f0f0", border: "1px solid #ddd", borderRadius: "8px", cursor: "pointer", fontSize: "1.1rem", color: "#333" }}
                 >
                   {prompt}
                 </button>
@@ -161,9 +161,9 @@ export default function ChatInterface() {
               <div key={message.id} style={{ display: "flex", gap: "12px", justifyContent: message.role === "user" ? "flex-end" : "flex-start" }}>
                 <div style={{ maxWidth: "80%", padding: "12px 16px", borderRadius: "8px", wordWrap: "break-word", background: message.role === "user" ? "#007bff" : "#f0f0f0", color: message.role === "user" ? "white" : "#333", borderBottomRightRadius: message.role === "user" ? 0 : 8, borderBottomLeftRadius: message.role === "assistant" ? 0 : 8 }}>
                   {message.role === "user" ? (
-                    <p style={{ margin: 0, lineHeight: 1.5 }}>{message.content}</p>
+                    <p style={{ margin: 0, lineHeight: 1.5, fontSize: "1.2rem" }}>{message.content}</p>
                   ) : (
-                    <div style={{ margin: 0, lineHeight: 1.6, fontSize: "0.95rem" }}>
+                    <div style={{ margin: 0, lineHeight: 1.6, fontSize: "1.2rem" }}>
                       <ReactMarkdown
                         components={{
                           h1: ({node, ...props}) => <h2 style={{ margin: "8px 0 4px", fontSize: "1.3em", fontWeight: 600 }} {...props} />,
@@ -184,7 +184,7 @@ export default function ChatInterface() {
                     </div>
                   )}
                   {message.sources && message.sources.length > 0 && (
-                    <div style={{ marginTop: "12px", paddingTop: "12px", borderTop: "1px solid rgba(0,0,0,0.1)", fontSize: "0.9rem" }}>
+                    <div style={{ marginTop: "12px", paddingTop: "12px", borderTop: "1px solid rgba(0,0,0,0.1)", fontSize: "1.05rem" }}>
                       <div style={{ fontWeight: 600, marginBottom: "8px", color: "#555" }}>Sources:</div>
                       {message.sources.map((source, idx) => (
                         <a
